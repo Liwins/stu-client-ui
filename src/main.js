@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
@@ -14,7 +16,7 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-
+Vue.use(VueAxios, axios)
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

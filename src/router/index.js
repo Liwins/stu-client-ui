@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '仪表板', icon: 'dashboard' }
+      meta: { title: '学生管理系统', icon: 'dashboard' }
     }]
   },
 
@@ -72,7 +72,7 @@ export const constantRoutes = [
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: '角色管理', icon: 'tree' }
+        meta: { title: '列表管理', icon: 'tree' }
       }
     ]
   },
@@ -85,7 +85,20 @@ export const constantRoutes = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: '基本数据管理', icon: 'form' }
+        meta: { title: '基本学生数据管理', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/Studenttable',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index/:studentId',
+        name: 'studenttable',
+        component: () => import('@/views/studenttable/index'),
+        meta: { title: '编辑学生信息', icon: 'form' }
       }
     ]
   },

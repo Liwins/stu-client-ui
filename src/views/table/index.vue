@@ -1,6 +1,22 @@
 <template>
   <div class="app-container">
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label="审批人">
+        <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+      </el-form-item>
+      <el-form-item label="活动区域">
+        <el-select v-model="formInline.region" placeholder="活动区域">
+          <el-option label="区域一" value="shanghai"></el-option>
+          <el-option label="区域二" value="beijing"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">查询</el-button>
+      </el-form-item>
+    </el-form>
+
     <el-button type="primary" @click="handleCreate()">新增</el-button>
+
     <el-dialog title="用户操作" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="用户名" :label-width="formLabelWidth">
@@ -39,9 +55,9 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="编号" width="95">
+      <el-table-column align="center" label="序号" width="95">
         <template slot-scope="scope">
-          {{ scope.row.id }}
+          {{ scope.$index+1 }}
         </template>
       </el-table-column>
       <el-table-column label="用户名">
@@ -70,10 +86,10 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
      :current-page.sync="adminData.pageNum"
-      :page-sizes="[100, 200, 300, 400]"
+      :page-sizes="[1, 2, 5, 10]"
       :page-size="adminData.pageSize"
       layout="sizes, prev, pager, next"
-      :total="adminData.totalPage">
+      :total="adminData.total">
     </el-pagination>
   </div>
 </template>
@@ -109,7 +125,7 @@ export default {
       formLabelWidth: '120px',
       adminData: {
         pageNum: 0,
-        pageSize: 0,
+        pageSize: 1,
         totalPage: 0,
         total: 0,
         list: []
@@ -176,7 +192,7 @@ export default {
         pageSize: this.adminData.pageSize
       }
       getList(pageInfo).then(response => {
-        this.adminData.list = response.data.list
+        this.adminData = response.data
         this.listLoading = false
       })
     }
